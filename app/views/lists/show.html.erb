@@ -1,5 +1,5 @@
 <!-- Hero Banner -->
-<div class="list-hero">
+<div class="list-hero" style="background-image: url(<%= cl_image_path(@list.photo.key) %>">
   <div class="list-hero__overlay">
     <h1 class="list-hero__title"><%= @list.name %></h1>
   </div>
@@ -42,13 +42,28 @@
     </div>
   <% end %>
 </div>
-<div class="container">
-  <h2>Créer un nouveau bookmark </h2>
-  <div class="w-50 mb-4">
-    <%= simple_form_for [@list, @bookmark] do |f| %>
-      <%= f.input :movie_id, collection: Movie.all, label_method: :title, value_method: :id, prompt: "Choisir un film" %>
+
+<div class="container border-top">
+  <div class="row mt-5">
+    <div class="reviews col-6">
+
+    <% @reviews.each do |review| %>
+      <div class="review">
+        <p><%= review.comment %></p>
+        <p><%= review.rating %>/5</p>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="add-review col-6">
+  <h2>Ajoute ta review</h2>
+  <div class="mb-4 mt-2">
+    <%= simple_form_for [@list, @review] do |f| %>
       <%= f.input :comment, label: "Comment", placeholder: "Mets ton avis ici" %>
+      <%= f.input :rating, label: "Rating", as: :select, collection: Review::VALID_RATINGS, prompt: "Choisis une note" %>
       <%= f.button :submit, "Enregistrer", class: "btn btn-add-movie" %>
     <% end %>
+    </div>
+  </div>
   </div>
 </div>

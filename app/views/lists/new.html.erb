@@ -3,6 +3,7 @@
     <h1 class="text-center my-3">Créer une nouvelle liste</h1>
     <%= simple_form_for @list do |f| %>
       <%= f.input :name, label: "Nouvelle liste", placeholder: "Mets le nom de la liste ici" %>
+      <%= f.input :photo, as: :file %>
       <%= f.button :submit, "Enregistrer", class: "btn btn-primary" %>
     <% end %>
   </div>
