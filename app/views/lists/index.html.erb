@@ -18,7 +18,7 @@
   <div class="lists-grid">
     <% @lists.each do |list| %>
       <%= link_to list_path(list), class: "list-card",
-      style: "background-image: url(#{cl_image_path(list.photo.key)}" do %>
+      style: "background-image: url(#{cl_image_path(list.photo.key)})" do %>
         <div class="list-card__overlay"></div>
         <span class="list-card__name"><%= list.name %></span>
       <% end %>
