@@ -1,0 +1,54 @@
+<!-- Hero Banner -->
+<div class="list-hero">
+  <div class="list-hero__overlay">
+    <h1 class="list-hero__title"><%= @list.name %></h1>
+  </div>
+  <span class="list-hero__count"><%= @bookmarks.count %> movies</span>
+</div>
+
+<!-- Actions Bar -->
+<div class="list-actions">
+  <%= link_to "add a new bookmark", new_list_bookmark_path(@list), class: "btn-add-movie" %>
+</div>
+
+<!-- Movie Cards Grid -->
+<div class="bookmarks-grid">
+  <% @bookmarks.each do |bookmark| %>
+    <div class="bookmark-card">
+      <div class="bookmark-card__poster">
+        <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title %>
+      </div>
+      <div class="bookmark-card__body">
+        <div class="bookmark-card__header">
+          <span class="bookmark-card__title"><%= bookmark.movie.title %></span>
+          <span class="bookmark-card__rating">
+            · <%= bookmark.movie.rating %>
+            <span class="star">★</span>
+          </span>
+        </div>
+        <p class="bookmark-card__overview"><%= bookmark.movie.overview %></p>
+        <div class="bookmark-card__footer">
+          <% if bookmark.comment.present? %>
+            <span class="bookmark-card__comment">
+              <i class="fa-solid fa-quote-left"></i>
+              <%= bookmark.comment %>
+            </span>
+          <% end %>
+          <%= link_to "delete", bookmark_path(bookmark),
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+              class: "bookmark-card__delete" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="container">
+  <h2>Créer un nouveau bookmark </h2>
+  <div class="w-50 mb-4">
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :movie_id, collection: Movie.all, label_method: :title, value_method: :id, prompt: "Choisir un film" %>
+      <%= f.input :comment, label: "Comment", placeholder: "Mets ton avis ici" %>
+      <%= f.button :submit, "Enregistrer", class: "btn btn-add-movie" %>
+    <% end %>
+  </div>
+</div>

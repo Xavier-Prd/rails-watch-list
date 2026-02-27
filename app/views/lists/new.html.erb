@@ -1,0 +1,9 @@
+<div class="container mt-4 d-flex justify-content-center">
+  <div class="w-50">
+    <h1 class="text-center my-3">Créer une nouvelle liste</h1>
+    <%= simple_form_for @list do |f| %>
+      <%= f.input :name, label: "Nouvelle liste", placeholder: "Mets le nom de la liste ici" %>
+      <%= f.button :submit, "Enregistrer", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
